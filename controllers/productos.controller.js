@@ -23,7 +23,7 @@ const getProductById = (req, res) => {
     if(!producto) 
         return res.json({ status: 404, message: 'Producto no enconrado' })
 
-    res.json({ ata: producto, status: 200, message: 'Producto encontrado' })
+    res.json({ data: producto, status: 200, message: 'Producto encontrado' })
 }
 
 const createProduct = (req, res) => {
@@ -39,11 +39,11 @@ const createProduct = (req, res) => {
 const updateProduct = (req, res) => {
     const producto = productos.find(item => item.id === parseInt(req.params.id))
     if(!producto) 
-        return res.json({ status: 404, message: 'Producto no enconrado' })
+        return res.json( {status: 404, message: 'Producto no enconrado'})
 
-    const {nombre, precio} = req.body   
-    producto.nombre = nombre || producto.nombre
-    producto.precio = precio || producto.precio
+    const { name, price } = req.body   
+    producto.name = name || producto.name
+    producto.price = price || producto.price
 
     escribirProductos(productos)
 

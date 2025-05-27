@@ -1,12 +1,27 @@
 [
   {
-    "nombre": "Monitor",
-    "precio": 4000,
+    "name": "Monitor",
+    "price": 4000,
     "id": 1
   },
   {
-    "nombre": "Muuse",
-    "precio": 4000,
+    "name": "Mouse",
+    "price": 4000,
     "id": 2
+  },
+  {
+    "name": "Gabinete",
+    "price": 8000,
+    "id": 3
+  },
+  {
+    "name": "Mouse Pad",
+    "price": 3000,
+    "id": 5
+  },
+  {
+    "name": "Cargador",
+    "price": 2500,
+    "id": 5
   }
 ]
