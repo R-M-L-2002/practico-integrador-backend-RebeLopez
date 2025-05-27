@@ -1,0 +1,12 @@
+[
+  {
+    "nombre": "Monitor",
+    "precio": 4000,
+    "id": 1
+  },
+  {
+    "nombre": "Muuse",
+    "precio": 4000,
+    "id": 2
+  }
+]
