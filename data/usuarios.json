@@ -1,14 +1,32 @@
 [
   {
-    "nombre": "Elena",
+    "name": "Elena",
     "email": "elenita@gmail.com",
-    "edad": 24,
+    "age": 24,
     "id": 1
   },
-    {
-    "nombre": "Ricardo",
+  {
+    "name": "Ricardo",
     "email": "ricardito@gmail.com",
-    "edad": 32,
+    "age": 32,
     "id": 2
+  },
+  {
+    "name": "Amanda",
+    "email": "amandita@gmail.com",
+    "age": 46,
+    "id": 3
+  },
+  {
+    "name": "Rebeca",
+    "email": "rebeca@gmail.com",
+    "age": 22,
+    "id": 4
+  },
+  {
+    "name": "Agustin",
+    "email": "agusprofe@gmail.com",
+    "age": 26,
+    "id": 5
   }
 ]

@@ -1,7 +1,7 @@
 [
   {
     "name": "Monitor",
-    "price": 4000,
+    "price": 4500,
     "id": 1
   },
   {
@@ -15,13 +15,18 @@
     "id": 3
   },
   {
+    "name": "Teclado",
+    "price": 5000,
+    "id": 4
+  },
+  {
     "name": "Mouse Pad",
-    "price": 3000,
+    "price": 1500,
     "id": 5
   },
   {
-    "name": "Cargador",
-    "price": 2500,
-    "id": 5
+    "name": "Auriculares",
+    "price": 2700,
+    "id": 6
   }
 ]

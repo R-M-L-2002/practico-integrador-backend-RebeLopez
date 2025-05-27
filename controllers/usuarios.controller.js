@@ -23,12 +23,11 @@ const getUsersById = (req, res) => {
     if(!usuario) 
         return res.json({ status:404, message: 'Usuario no encontrado'})
 
-    res,json({ data: usuario, status: 200, message: 'Usuario encontrado' })
+    res.json({ data: usuario, status: 200, message: 'Usuario encontrado' })
 }   
 
 const createUser = (req, res) => {
     const nuevoUsuario = req.body
-    nuevoUsuario.id = usuarios.length + 1
     nuevoUsuario.id = usuarios.length + 1
     usuarios.push(nuevoUsuario)
 
@@ -42,10 +41,10 @@ const updateUser = (req, res) => {
     if(!usuario)
         return res.json({ status: 404, message: 'Usuario no encontrado' })
 
-    const {nombre, email, edad} = req.body
-    usuario.nombre = nombre || usuario.nombre
+    const {name, email, age} = req.body
+    usuario.name = name || usuario.name
     usuario.email = email || usuario.email
-    usuario.edad = edad || usuario.edad
+    usuario.age = age || usuario.age
     
     escribiUsuarios(usuarios)
 
