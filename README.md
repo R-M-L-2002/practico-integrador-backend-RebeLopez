@@ -24,4 +24,13 @@ npm install
 ```
 npm run dev
 ```
-
+4. Para la DB
+```
+CREATE DATABASE crud_db;
+```
+```
+node db.js
+```
+```
+npx sequelize-cli db:migrate
+```
