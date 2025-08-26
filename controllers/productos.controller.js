@@ -1,66 +1,69 @@
-const fs = require('fs')
-const path = require('path')
-const filePath = path.join(__dirname, '../data/productos.json')
+const { Producto } = require('../models'); 
 
-const leerProductos = () => {
-    const data = fs.readFileSync(filePath, 'utf8')
+// Obtener todos los productos
+const getProducts = async (req, res) => {
+    try {
+        const productos = await Producto.findAll();
+        res.json({ data: productos, status: 200, message: 'Productos obtenidos de manera exitosa' });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: 'Error al obtener productos', error: error.message });
+    }
+};
 
-    return JSON.parse(data) 
-}
+// Obtener un producto por ID
+const getProductById = async (req, res) => {
+    try {
+        const producto = await Producto.findByPk(req.params.id);
+        if (!producto) return res.status(404).json({ status: 404, message: 'Producto no encontrado' });
 
-let productos = leerProductos()
+        res.json({ data: producto, status: 200, message: 'Producto encontrado' });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: 'Error al buscar el producto', error: error.message });
+    }
+};
 
-const escribirProductos = (productos) => {
-    fs.writeFileSync(filePath, JSON.stringify(productos, null, 2))
-}
+// Crear un nuevo producto
+const createProduct = async (req, res) => {
+    const { nombre, precio } = req.body;
+    try {
+        if (!nombre || !precio) return res.status(400).json({ status: 400, message: 'Faltan datos obligatorios' });
 
-const getProducts = (req, res) => {
-    res.json({ data: productos, status: 200, message: 'Productos obtenidos de manera exitosa' })
-}
+        const nuevoProducto = await Producto.create({ nombre, precio });
+        res.status(201).json({ data: nuevoProducto, status: 201, message: 'Producto creado con éxito' });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: 'Error al crear el producto', error: error.message });
+    }
+};
 
-const getProductById = (req, res) => {
-    const producto = productos.find(item => item.id === parseInt(req.params.id))
-    if(!producto) 
-        return res.json({ status: 404, message: 'Producto no enconrado' })
+// Actualizar un producto existente
+const updateProduct = async (req, res) => {
+    try {
+        const producto = await Producto.findByPk(req.params.id);
+        if (!producto) return res.status(404).json({ status: 404, message: 'Producto no encontrado' });
 
-    res.json({ data: producto, status: 200, message: 'Producto encontrado' })
-}
+        const { nombre, precio } = req.body;
+        producto.nombre = nombre || producto.nombre;
+        producto.precio = precio || producto.precio;
 
-const createProduct = (req, res) => {
-    const nuevoProducto = req.body
-    nuevoProducto.id = productos.length + 1
-    productos.push(nuevoProducto)
+        await producto.save();
+        res.json({ data: producto, status: 200, message: 'Producto editado exitosamente' });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: 'Error al editar producto', error: error.message });
+    }
+};
 
-    escribirProductos(productos)
+// Eliminar un producto
+const deleteProduct = async (req, res) => {
+    try {
+        const producto = await Producto.findByPk(req.params.id);
+        if (!producto) return res.status(404).json({ status: 404, message: 'Producto no encontrado' });
 
-    res.json({ status: 201, data: nuevoProducto, message: 'Producto creado con exito' })
-}
-
-const updateProduct = (req, res) => {
-    const producto = productos.find(item => item.id === parseInt(req.params.id))
-    if(!producto) 
-        return res.json( {status: 404, message: 'Producto no enconrado'})
-
-    const { name, price } = req.body   
-    producto.name = name || producto.name
-    producto.price = price || producto.price
-
-    escribirProductos(productos)
-
-    res.json({ status:201, message: 'producto editado exitosamente'})
-} 
-
-const deleteProduct = (req, res) => {
-    let producto = productos.find(item => item.id === parseInt(req.params.id))
-    if(!producto) 
-        return res.json({ status: 404, message: 'Producto no enconrado' })
-
-    productos = productos.filter(item => item.id !== producto.id)
-
-    escribirProductos(productos)
-
-    res.json({ status:201, message: 'producto eliminado con exito' })
-}
+        await producto.destroy();
+        res.json({ status: 200, message: 'Producto eliminado exitosamente' });
+    } catch (error) {
+        res.status(500).json({ status: 500, message: 'Error al eliminar producto', error: error.message });
+    }
+};
 
 module.exports = {
     getProducts,
@@ -68,4 +71,4 @@ module.exports = {
     createProduct,
     updateProduct,
     deleteProduct
-}
+};
